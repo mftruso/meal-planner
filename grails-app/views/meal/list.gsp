@@ -79,8 +79,8 @@
                 });
 
                 $.each($(".dish"),function(index,field){
-                                    console.log($(field).val(""))
-                                });
+                    $(field).val("");
+                });
 
             });
 
@@ -128,10 +128,6 @@
                         <div>
                             <label>${dishType.name}</label>
                             <br/>
-
-                            <script>
-                                intializeTypeahead("${dishType.name}","${dishType.name}");
-                            </script>
 
                             <input id="${dishType.name}" class="form-control dish" name="${dishType.name.toLowerCase()}Dish"/>
                         </div>
