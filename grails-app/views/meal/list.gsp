@@ -38,6 +38,7 @@
                                 console.log('search success')
                                 $('.selectedDate').text(calEvent.start.format())
                                 console.log(data)
+                                $('.dish-list').empty()
                                 data.dishes.forEach(lookupDish);
                                 $('.editButton').prop('href', '${createLink(controller: 'meal', action: 'edit')}?id='+calEvent.mealId)
                                 $('#viewMealModal').modal('show');
