@@ -11,6 +11,7 @@
     <asset:stylesheet src="application.css" />
     <asset:stylesheet src="fullcalendar.print.css" media="print" />
     <asset:javascript src="application.js" />
+    <asset:javascript src="typeahead.js" />
 
     <g:layoutHead/>
 </head>
