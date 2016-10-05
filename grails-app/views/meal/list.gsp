@@ -40,7 +40,10 @@
                                 console.log(data)
                                 $('.dish-list').empty()
                                 data.dishes.forEach(lookupDish);
+                                $('#groceryList').prop("checked", data.groceryList)
+                                $('#groceriesPurchased').prop("checked", data.groceriesPurchased)
                                 $('.editButton').prop('href', '${createLink(controller: 'meal', action: 'edit')}?id='+calEvent.mealId)
+                                $('#groceries').attr('data-mealid', calEvent.mealId)
                                 $('#viewMealModal').modal('show');
                             })
                             .fail(function(data){
@@ -75,6 +78,31 @@
                     cal.fullCalendar( 'refetchEvents' );
                 }).fail(function(){
                     alert('Oops! There was a problem making this meal.');
+                });
+
+            });
+
+
+            $('.groceryBox').click(function(){
+                var data = {}
+                data.checked = this.checked
+                data.box = this.id
+
+                var mealId = $('#groceries').attr('data-mealid')
+
+                $.ajax({
+                    type: "POST",
+                    url: "${createLink(controller: 'meal', action: 'update')}?id="+mealId,
+                    data: JSON.stringify(data),
+                    dataType: 'json',
+                    contentType: 'application/json',
+                    headers: {
+                        'Accept': 'application/json'
+                    }
+                }).done(function(data){
+                    cal.fullCalendar( 'refetchEvents' );
+                }).fail(function(){
+                    alert('Oops! There was a problem updating this meal.');
                 });
 
             });
@@ -148,7 +176,17 @@
 
                 <h3>Dishes</h3>
                 <div class="dish-list"></div>
-
+                <div id="groceries">
+                    <label>
+                        <input type="checkbox" class="groceryBox" id="groceryList">
+                        Grocery List Create
+                    </label>
+                    </br>
+                    <label>
+                        <input type="checkbox" class="groceryBox" id="groceriesPurchased">
+                        Groceries Purchased
+                    </label>
+                </div>
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>

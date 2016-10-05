@@ -63,4 +63,31 @@ class MealController {
         }
         render response as JSON
     }
+
+    def update(){
+        def json = request.JSON
+        Meal meal = Meal.get(params.id)
+
+        if(!meal){
+            render (status: HttpStatus.BAD_REQUEST, message: meal.errors) as JSON
+        }
+        else{
+            def box = json.box
+            def checked = json.checked
+        
+            if(box == "groceryList")
+                meal.groceryList = checked
+
+            if(box == "groceriesPurchased")
+                meal.groceriesPurchased = checked
+
+            if(!meal.save()){
+                render (status: HttpStatus.BAD_REQUEST, message: meal.errors) as JSON
+            } else {
+                render (status: HttpStatus.ACCEPTED) as JSON
+            }
+
+        }
+        
+    }
 }
