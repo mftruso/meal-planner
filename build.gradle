@@ -13,7 +13,7 @@ buildscript {
     }
 }
 
-version "0.1.1"
+version "0.1.2"
 group "mealplanner"
 
 apply plugin:"eclipse"
