@@ -137,3 +137,6 @@ environments {
 
 grails.plugin.databasemigration.updateOnStart = true
 grails.plugin.databasemigration.updateOnStartFileNames = ['changelog.groovy']
+
+gcal.clientId = ${MP_GCAL_CLIENT}
+gcal.clientSecret = ${MP_GCAL_CLIENT_SECRET}
