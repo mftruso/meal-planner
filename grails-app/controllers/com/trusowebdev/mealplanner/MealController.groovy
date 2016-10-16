@@ -68,26 +68,52 @@ class MealController {
         def json = request.JSON
         Meal meal = Meal.get(params.id)
 
-        if(!meal){
-            render (status: HttpStatus.BAD_REQUEST, message: meal.errors) as JSON
-        }
-        else{
-            def box = json.box
-            def checked = json.checked
-        
-            if(box == "groceryList")
-                meal.groceryList = checked
-
-            if(box == "groceriesPurchased")
-                meal.groceriesPurchased = checked
-
-            if(!meal.save()){
+        if(json){
+            if(!meal){
                 render (status: HttpStatus.BAD_REQUEST, message: meal.errors) as JSON
-            } else {
-                render (status: HttpStatus.ACCEPTED) as JSON
+            }
+            else{
+                def box = json.box
+                def checked = json.checked
+
+                if(box == "groceryList")
+                    meal.groceryList = checked
+
+                if(box == "groceriesPurchased")
+                    meal.groceriesPurchased = checked
+
+                if(!meal.save()){
+                    render (status: HttpStatus.BAD_REQUEST, message: meal.errors) as JSON
+                } else {
+                    render (status: HttpStatus.ACCEPTED) as JSON
+                }
+
+            }
+        } else {
+            println params
+            if(!meal){
+                redirect action: 'list'
+                return
             }
 
+            meal.dishes = []
+            def dishes = params.dishes.split(',')
+            dishes.each {
+                meal.addToDishes(Dish.get(it))
+            }
+
+            meal.groceriesPurchased = params?.groceriesPurchased ? true : false
+            meal.groceryList = params?.groceryList ? true : false
+
+            if(meal.save()){
+                flash.message = 'Successfully saved meal edits!'
+                render view: 'list'
+            } else {
+                render view: 'edit', model: [meal: meal]
+            }
         }
+
+
         
     }
 }
