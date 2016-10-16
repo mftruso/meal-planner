@@ -1,4 +1,4 @@
-package mealplanner
+package com.trusowebdev.mealplanner
 
 import grails.boot.GrailsApp
 import grails.boot.config.GrailsAutoConfiguration

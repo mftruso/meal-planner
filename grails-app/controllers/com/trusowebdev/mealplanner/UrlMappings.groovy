@@ -1,4 +1,4 @@
-package mealplanner
+package com.trusowebdev.mealplanner
 
 class UrlMappings {
 
