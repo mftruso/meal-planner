@@ -55,7 +55,9 @@
                 var dishes = [];
                 $('.dish').each(function(){
                     var dishId = $(this).val();
-                    dishes.push(dishId)
+                    if(dishId.length > 0) {
+                        dishes.push(dishId)
+                    }
                 });
                 formData.mealDate = $('#mealDate').val();
                 formData.dishes = dishes;
@@ -76,6 +78,10 @@
                     alert('Oops! There was a problem making this meal.');
                 });
 
+                $.each($(".dish"),function(index,field){
+                    $(field).val("");
+                });
+
             });
 
         });
@@ -90,7 +96,12 @@
                         console.log('dish lookup failed');
                     })
         }
+
+        <g:each in="${DishType.listOrderBySortOrder()}" var="dishType" >
+            intializeTypeahead("${dishType.name}","${dishType.name}");
+        </g:each>
     </asset:script>
+
 </head>
 <body>
 
@@ -114,8 +125,13 @@
                     <g:hiddenField type="hidden" name="mealDate" />
 
                     <g:each in="${DishType.listOrderBySortOrder()}" var="dishType" >
-                        <label>${dishType.name}</label>
-                        <g:select name="${dishType.name.toLowerCase()}Dish" class="form-control dish" from="${Dish.findAllByType(dishType, [sort: 'name', order: 'asc'])}" optionValue="name" optionKey="id" noSelection="['':'Select a Dish']"  />
+                        <div>
+                            <label>${dishType.name}</label>
+                            <br/>
+
+                            <input id="${dishType.name}" class="form-control dish" name="${dishType.name.toLowerCase()}Dish"/>
+                        </div>
+
                     </g:each>
 
                     <div class="form-group extraDish" style="display:none">

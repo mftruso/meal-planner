@@ -42,7 +42,7 @@ class MealController {
         Meal meal = new Meal()
         meal.mealDate = Date.parse("yyyy-MM-dd", json.mealDate)
         json.dishes.each {
-            Dish dish = Dish.get(it)
+            Dish dish = Dish.findByName(it)
             if(dish){
                 meal.addToDishes(dish)
             }
