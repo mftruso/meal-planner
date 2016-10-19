@@ -12,3 +12,5 @@ classes/
 .classpath
 **/.asscache
 **/target/
+src/assets/
+node_modules
