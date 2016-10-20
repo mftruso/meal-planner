@@ -15,23 +15,17 @@ buildscript {
 }
 
 plugins {
-    id 'com.craigburke.bower-installer' version '2.5.1'
+    id 'com.craigburke.client-dependencies' version '1.2.0'
 }
 
-bower {
-    installBase = 'src/assets/bower'
-
-    "animate.css"("3.4.0"){
-
+clientDependencies {
+    installDir = 'grails-app/assets/vendor'
+    bower {
+        "animate.css"("3.4.0"){}
     }
-
-    'bootstrap'('4.0.0-alpha.4'){
-        source 'dist/css/*.min.css' >> 'styles/'
-        source 'dist/fonts/**' >> 'fonts/'
-
-        excludes 'jquery'
+    npm {
+        'bootstrap'('4.0.0-alpha.5', exclude: 'jquery')
     }
-
 }
 
 version file('version.txt').text.trim()
@@ -104,3 +98,6 @@ assets {
     minifyJs = true
     minifyCss = true
 }
+
+assetCompile.dependsOn clientRefresh
+bootRun.dependsOn clientRefresh

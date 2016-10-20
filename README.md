@@ -24,9 +24,15 @@ The easiest way to install most binaries on OS X is via [Homebrew](http://brew.s
 
 
 ## Usage
-Run the application with Gradle
+
+Run the application with Gradle. This also calls the `clientRefresh` task to build client-side dependencies
 ```
 ./gradlew bootRun
+```
+
+Refresh the client side dependencies after updating them in  `build.gradle`
+```
+./gradlew clientRefresh
 ```
 
 ## Contributing
