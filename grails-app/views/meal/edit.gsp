@@ -24,7 +24,6 @@
         <g:hiddenField name="id" value="${meal.id}" />
         <g:hiddenField name="dishes" />
 
-        %{--TODO: Sort by DishType--}%
         <g:each in="${meal.dishes}" var="dish" >
             <label>${dish.type.name}</label>
             <g:select name="${dish.type.name.toLowerCase()}Dish" value="${dish.id}" class="form-control dish" from="${Dish.findAllByType(dish.type, [sort: 'name', order: 'asc'])}" optionValue="name" optionKey="id" noSelection="['':'Select a Dish']"  />

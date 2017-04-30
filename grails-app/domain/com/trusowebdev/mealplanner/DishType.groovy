@@ -8,4 +8,8 @@ class DishType {
         name nullable: false, unique: true
         sortOrder nullable: false, min: 1
     }
+
+    static mapping = {
+        sort sortOrder: "asc"
+    }
 }

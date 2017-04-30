@@ -32,12 +32,9 @@
                     $('#addMealModal').modal('show');
                 },
                 eventClick: function(calEvent, jsEvent, view) {
-                    console.log(calEvent)
                     $.get('${createLink(controller: 'meal', action: 'search')}?mealId='+calEvent.mealId)
                             .done(function(data){
-                                console.log('search success')
                                 $('.selectedDate').text(calEvent.start.format())
-                                console.log(data)
                                 $('.dish-list').empty()
                                 data.dishes.forEach(lookupDish);
                                 $('#groceryList').prop("checked", data.groceryList)
@@ -77,7 +74,6 @@
                         'Accept': 'application/json'
                     }
                 }).done(function(data){
-                   console.log(data)
                     $('#addMealModal').modal('hide');
                     cal.fullCalendar( 'refetchEvents' );
                 }).fail(function(){
@@ -120,7 +116,6 @@
         function lookupDish(dish, index){
             $.get('${createLink(controller: 'dish', action: 'searchDishes')}?id='+dish.id)
                     .done(function (data) {
-                        console.log('dish lookup successful');
                         $('.dish-list').append("<li>" + data.name + "</li>");
                     })
                     .fail(function () {
