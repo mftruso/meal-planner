@@ -45,6 +45,13 @@ class DishController {
                         name:it.name
                 ]
             }
+        } else if(params.type){
+            responseData = Dish.findAllByType(DishType.findAllByNameIlike("%${params.type}%")).collect {
+                [
+                        id:it.id,
+                        name:it.name
+                ]
+            }
         } else if(params.q){
             responseData = Dish.findAllByNameIlike("%${params.q}%").collect {
                 [

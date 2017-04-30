@@ -90,7 +90,6 @@ class MealController {
 
             }
         } else {
-            println params
             if(!meal){
                 redirect action: 'list'
                 return
@@ -112,8 +111,17 @@ class MealController {
                 render view: 'edit', model: [meal: meal]
             }
         }
+    }
 
-
-        
+    def removeDishFromMeal(){
+        println params
+        Meal meal = Meal.get(params.mealId)
+        Dish dish = Dish.get(params.dishId)
+        meal.removeFromDishes(dish)
+        if(!meal.save()){
+            render (status: HttpStatus.BAD_REQUEST, message: meal.errors) as JSON
+        } else {
+            render (status: HttpStatus.ACCEPTED) as JSON
+        }
     }
 }
