@@ -278,7 +278,6 @@ $(function() {
 
 
 function setSameHeights($container) {
-    console.log('setting same heights')
 	$container = $container || $('.sameheight-container');
 
 	var viewport = ResponsiveBootstrapToolkit.current();

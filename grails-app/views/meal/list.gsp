@@ -52,6 +52,8 @@
                 }
             });
 
+            setSameHeights();
+
             //TODO: Add an extra dish to a meal
 
             $('.meal-save-button').click(function(){
