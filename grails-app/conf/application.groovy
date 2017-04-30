@@ -90,6 +90,7 @@ environments {
 
     production {
         dataSource {
+			password = System.getenv('MEALPLANNER_PASS')
             properties {
                 defaultTransactionIsolation = TRANSACTION_READ_COMMITTED
                 initialSize = 5
