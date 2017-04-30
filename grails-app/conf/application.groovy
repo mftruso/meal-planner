@@ -118,3 +118,6 @@ environments {
         server.port = 5000
     }
 }
+
+grails.plugin.databasemigration.updateOnStart = true
+grails.plugin.databasemigration.updateOnStartFileNames = ['changelog.groovy']

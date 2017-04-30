@@ -11,8 +11,10 @@ class DishController {
     }
 
     def edit(){
+        Dish dish = Dish.get(params.id)
         [
-                dish: Dish.get(params.id)
+                dish: dish,
+                categories: DishCategory.findAllByDish(dish).collect {it.category}
         ]
     }
 
@@ -33,7 +35,7 @@ class DishController {
                     recipeLocation: dish.recipeLocation,
                     notes: dish.notes,
                     history: history,
-                    categories: dish.categories.collect{it.name}
+                    categories: DishCategory.findAllByDish(dish).collect { it.category.name }
             ]
             responseData = dishDetails
         } else if(params.q && params.type) {
@@ -65,8 +67,8 @@ class DishController {
         Dish dish = new Dish(params)
         def categories = params.categoryIds?.tokenize(',')
         categories.each {
-            def category = DishCategory.get(it)
-            dish.addToCategories(category)
+            def category = Category.get(it)
+            new DishCategory(dish: dish, category: category).save()
         }
         if(!dish.save()){
             flash.message = "Error saving new Dish!"
@@ -80,11 +82,22 @@ class DishController {
     def update(){
         Dish dish = Dish.get(params.dishId)
         dish.properties = params
-        dish.categories = null
-        def categories = params.categoryIds?.tokenize(',')
+        def categories = params.categoryIds?.tokenize(',')*.toLong()
         categories.each {
-            def category = DishCategory.get(it)
-            dish.addToCategories(category)
+            def category = Category.get(it)
+            DishCategory.findOrCreateByDishAndCategory(dish, category).save()
+        }
+
+        //remove unused
+        DishCategory.withCriteria {
+            and {
+                eq ('dish', dish)
+                category {
+                    not { 'in' ('id', categories) }
+                }
+            }
+        }.each {
+            it.delete()
         }
         if(!dish.save()){
             flash.message = "Error saving new Dish!"

@@ -1,4 +1,4 @@
-<%@ page import="com.trusowebdev.mealplanner.DishCategory; com.trusowebdev.mealplanner.DishType" %>
+<%@ page import="com.trusowebdev.mealplanner.Category; com.trusowebdev.mealplanner.DishType" %>
 <html>
 <head>
     <title>New Dish</title>
@@ -29,7 +29,7 @@
 
             <label>Categories</label>
             <ul class="categoryList"></ul>
-            <g:select name="category" class="form-control categorySelect" from="${DishCategory.listOrderByName()}" optionValue="name" optionKey="id" noSelection="['':'-Add a Category-']" />
+            <g:select name="category" class="form-control categorySelect" from="${Category.listOrderByName()}" optionValue="name" optionKey="id" noSelection="['':'-Add a Category-']" />
             <g:hiddenField name="categoryIds" value="" />
         </div>
         <g:submitButton name="submit" class="btn btn-primary" value="Submit" />

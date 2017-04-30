@@ -11,38 +11,35 @@
     <asset:stylesheet src="application.css" />
     <asset:stylesheet src="fullcalendar.print.css" media="print" />
     <asset:javascript src="application.js" />
-
     <g:layoutHead/>
 </head>
-<body>
+<body style="">
 
-<div class="navbar navbar-default navbar-static-top" role="navigation">
-    <div class="container">
-        <div class="navbar-header">
-            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
-                <span class="sr-only">Toggle navigation</span>
-                <span class="icon-bar"></span>
-                <span class="icon-bar"></span>
-                <span class="icon-bar"></span>
-            </button>
-            <a class="navbar-brand" href="/#">
-            </a>
-        </div>
-        <div class="navbar-collapse collapse" aria-expanded="false" style="height: 0.8px;">
-            <ul class="nav navbar-nav navbar-right">
-                <li><a href="${createLink(controller: 'meal', action: 'list')}">Meals</a></li>
-                <li><a href="${createLink(controller: 'dish', action: 'list')}">Dishes</a></li>
-                <li><a href="${createLink(controller: 'dishCategory', action: 'list')}">Categories</a></li>
-            </ul>
-        </div>
+<div class="main-wrapper">
+    <div class="app" id="app">
+        <header class="header">
+            <div class="header-block header-block-collapse hidden-lg-up">
+                <button class="collapse-btn" id="sidebar-collapse-btn">
+                    <i class="fa fa-bars"></i>
+                </button>
+            </div>
+            <div class="header-block header-block-search hidden-sm-down">
+                <form role="search">
+                    <div class="input-container"> <i class="fa fa-search"></i> <input type="search" placeholder="Search">
+                        <div class="underline"></div>
+                    </div>
+                </form>
+            </div>
+        </header>
+        <g:render template="/layouts/sidebar" />
+
+        <article class="content dashboard-page">
+            <g:render template="/layouts/alerts" />
+            <g:layoutBody/>
+        </article>
+        <g:render template="/layouts/footer" />
     </div>
 </div>
-
-<div class="container">
-    <g:layoutBody/>
-</div>
-
-<div class="footer" role="contentinfo"></div>
 
 <asset:deferredScripts/>
 

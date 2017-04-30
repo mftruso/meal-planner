@@ -1,11 +1,11 @@
-<%@ page import="com.trusowebdev.mealplanner.DishCategory; com.trusowebdev.mealplanner.DishType" %>
+<%@ page import="com.trusowebdev.mealplanner.Category; com.trusowebdev.mealplanner.DishType" %>
 <html>
 <head>
     <title>Edit Dish</title>
     <meta name="layout" content="bootstrap">
     <asset:script>
         $(document).ready(function() {
-            var initialCategories = "${dish.categories.collect{it.id}}";
+            var initialCategories = "${categories.collect{it.id}}";
             initialCategories = initialCategories.slice(1, -1);
             $('input[name="categoryIds"]').val(initialCategories);
         });
@@ -40,11 +40,11 @@
 
                 <label>Categories</label>
                 <ul class="categoryList">
-                    <g:each in="${dish.categories}" var="category">
+                    <g:each in="${categories}" var="category">
                         <li>${category.name}<a href="#" id="${category.id}" class="removeCategoryItem"><i class="fa fa-remove"></i></a></li>
                     </g:each>
                 </ul>
-                <g:select name="category" class="form-control categorySelect" from="${DishCategory.listOrderByName()}" optionValue="name" optionKey="id" noSelection="['':'-Add a Category-']" />
+                <g:select name="category" class="form-control categorySelect" from="${Category.list()}" optionValue="name" optionKey="id" noSelection="['':'-Add a Category-']" />
                 <g:hiddenField name="categoryIds" value="" />
             </div>
         </div>

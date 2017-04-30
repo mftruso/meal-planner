@@ -18,15 +18,33 @@ plugins {
     id 'com.craigburke.client-dependencies' version '1.2.0'
 }
 
-clientDependencies {
-    installDir = 'grails-app/assets/vendor'
-    bower {
-        "animate.css"("3.4.0"){}
-    }
-    npm {
-        'bootstrap'('4.0.0-alpha.5', exclude: 'jquery')
-    }
-}
+//clientDependencies {
+//    installDir = 'grails-app/assets/vendor'
+//    cacheDir = 'build/client-cache/'
+//    useGlobalCache = true
+//    checkDownloads = true
+//    bower {
+//        "animate.css"("3.4.0")
+//        "font-awesome"('4.3.0')
+//        "jquery-flot"('0.8.3')
+//        "lot.tooltip"('0.8.5')
+//        "jquery-validation"("1.14.0")
+//        "jquery.sparkline"("http://omnipotent.net/jquery.sparkline/2.1.2/jquery.sparkline.js")
+//        "jqvmap"("1.4.0")
+//        "metisMenu"("2.0.3")
+//        "morrisjs"("0.5.1")
+//        "nprogress"("0.2.0")
+//        "quill"("0.20.1")
+//        "responsive-bootstrap-toolkit"("2.5.0")
+//        "Sortable"("1.4.2")
+//        "tether"("1.1.1")
+//        "tinycolor"("1.2.1")
+//        "dropzone"("4.2.0")
+//    }
+//    npm {
+//        'bootstrap'('4.0.0-alpha.5', exclude: 'jquery')
+//    }
+//}
 
 version file('version.txt').text.trim()
 group "com.trusowebdev"
@@ -99,5 +117,6 @@ assets {
     minifyCss = true
 }
 
-assetCompile.dependsOn clientRefresh
-bootRun.dependsOn clientRefresh
+//TODO make github authenticated request for bower. https://developer.github.com/v3/#rate-limiting
+//assetCompile.dependsOn clientRefresh
+//bootRun.dependsOn clientRefresh

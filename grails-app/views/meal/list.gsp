@@ -134,10 +134,25 @@
 </head>
 <body>
 
-<div class="row">
-    <h1>Meals</h1>
-    <div id="calendar"></div>
-</div>
+
+<section class="section">
+    <div class="row sameheight-container">
+        <div class="col col-xs-12">
+            <div class="card sameheight-item stats" data-exclude="xs">
+                <div class="card-block">
+                    <div class="title-block">
+                        <h4 class="title">
+                            Meals
+                        </h4>
+                    </div>
+                    <div class="row">
+                        <div id="calendar"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
 
 <div id="addMealModal" class="modal fade">
     <div class="modal-dialog">

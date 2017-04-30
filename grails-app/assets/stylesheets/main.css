@@ -66,3 +66,14 @@
 .tt-suggestion p {
   margin: 0;
 }
+
+.card {
+    padding-bottom: 20px;
+}
+
+.dishPropertyValue, .dishPropertyLabel {
+    display: inline-block;
+    width: 50%;
+    /*float: left;*/
+    /*margin-bottom: .5rem;*/
+}

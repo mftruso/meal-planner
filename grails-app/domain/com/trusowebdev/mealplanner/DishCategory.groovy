@@ -1,9 +1,15 @@
 package com.trusowebdev.mealplanner
 
 class DishCategory {
-    String name
+    Dish dish
+    Category category
 
     static constraints = {
-        name nullable: false, unique: true
+        dish nullable: false
+        category nullable: false
+    }
+
+    static mapping = {
+        dish sort: 'name'
     }
 }

@@ -7,8 +7,6 @@ class Dish {
     DishType type
     String notes
 
-    static hasMany = [categories: DishCategory]
-
     static constraints = {
         name nullable: false, blank: false
         recipeLocation nullable: true
