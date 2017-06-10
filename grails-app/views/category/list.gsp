@@ -19,6 +19,12 @@
                                 ${category.name}
                             </h4>
                         </div>
+                        <div class="header-block pull-right">
+                            <a href="${createLink(controller: 'category', action: 'edit', id: category.id)}" class="btn btn-primary btn-sm rounded">
+                                <i class="fa fa-pencil"></i> Edit
+                            </a>
+                            <a href="${createLink(controller: 'category', action: 'delete', id: category.id)}" class="btn btn-primary btn-sm rounded"><i class="fa fa-trash"></i></a>
+                        </div>
                     </div>
                     <div class="card-block">
                         <div class="row">
