@@ -5,7 +5,7 @@ class CategoryController {
     def index() {}
 
     def list(){
-        def results = Category.list()
+        def results = Category.listOrderByName()
         [categories: results]
     }
 
