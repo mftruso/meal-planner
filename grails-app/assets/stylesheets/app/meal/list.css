@@ -1,0 +1,13 @@
+#calendar {
+    padding: 0 20px;
+}
+.fc-event, .fc-event-dot {
+    background-color: inherit;
+}
+
+.fc-event, .fc-event:hover, .ui-widget .fc-event {
+    color: #000000;
+}
+.fc-event {
+    border: none;
+}

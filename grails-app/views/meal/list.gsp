@@ -4,18 +4,7 @@
     <title>Meal List</title>
     <meta name="layout" content="bootstrap">
 
-    <style>
-        .fc-event, .fc-event-dot {
-            background-color: inherit;
-        }
-
-        .fc-event, .fc-event:hover, .ui-widget .fc-event {
-            color: #000000;
-        }
-        .fc-event {
-            border: none;
-        }
-    </style>
+    <asset:stylesheet src="app/meal/list.css" />
 
     <asset:script>
         var selectedDate;
