@@ -1,0 +1,3 @@
+.category-mini-menu.dropdown-toggle::after {
+    display: none;
+}

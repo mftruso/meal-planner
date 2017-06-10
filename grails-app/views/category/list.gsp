@@ -3,10 +3,11 @@
 <head>
     <title>Categories</title>
     <meta name="layout" content="bootstrap">
+    <asset:stylesheet src="app/category/list.css" />
 </head>
 <body>
-<h1>Categories</h1>
-<a href="${createLink(action: 'create')}" class="btn btn-primary btn-small rounded"><i class="fa fa-plus"></i> New</a>
+<h1>Categories <a href="${createLink(action: 'create')}" class="btn btn-primary btn-small rounded"><i class="fa fa-plus"></i> New</a>
+</h1>
 
 <section class="section">
     <div class="row sameheight-container">
@@ -20,10 +21,22 @@
                             </h4>
                         </div>
                         <div class="header-block pull-right">
-                            <a href="${createLink(controller: 'category', action: 'edit', id: category.id)}" class="btn btn-primary btn-sm rounded">
-                                <i class="fa fa-pencil"></i> Edit
-                            </a>
-                            <a href="${createLink(controller: 'category', action: 'delete', id: category.id)}" class="btn btn-primary btn-sm rounded"><i class="fa fa-trash"></i></a>
+                            <div class="dropdown">
+                                <a class="dropdown-toggle category-mini-menu" href="https://example.com" id="${category.name}DropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                    <i class="fa fa-ellipsis-v"></i>
+                                </a>
+
+                                <div class="dropdown-menu dropdown-menu-right" aria-labelledby="${category.name}DropdownMenuLink">
+                                    <a href="${createLink(controller: 'category', action: 'edit', id: category.id)}" class="dropdown-item">
+                                        <i class="fa fa-pencil"></i> Edit
+                                    </a>
+                                    <a href="${createLink(controller: 'category', action: 'delete', id: category.id)}" class="dropdown-item">
+                                        <i class="fa fa-trash"></i> Delete
+                                    </a>
+                                </div>
+                            </div>
+
+
                         </div>
                     </div>
                     <div class="card-block">
