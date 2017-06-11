@@ -43,7 +43,7 @@
                         <div class="row">
                             <ul>
                                 <g:each in="${DishCategory.findAllByCategory(category)}" var="dishCategory">
-                                    <li>${dishCategory.dish.name}</li>
+                                    <li><a href="${createLink(controller: 'dish', action: 'show', id: dishCategory.dish.id)}">${dishCategory.dish.name}</a></li>
                                 </g:each>
                             </ul>
                         </div>

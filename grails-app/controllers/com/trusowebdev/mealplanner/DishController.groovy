@@ -10,6 +10,15 @@ class DishController {
 
     }
 
+    def show(){
+        Dish dish = Dish.get(params.id)
+        [
+                dish: dish,
+                categories: DishCategory.findAllByDish(dish).collect {it.category},
+                history: getDishHistory(dish)
+        ]
+    }
+
     def edit(){
         Dish dish = Dish.get(params.id)
         [
@@ -22,11 +31,7 @@ class DishController {
         def responseData
         if(params.id){
             Dish dish =  Dish.get(params.id)
-            def history = Meal.withCriteria() {
-                dishes {
-                    inList("id", [dish.id])
-                }
-            }.collect {
+            def history = getDishHistory(dish).collect {
                 it.mealDate.format('MM/dd/yyyy')
             }
             def dishDetails = [
@@ -117,5 +122,14 @@ class DishController {
 
     def delete(){
         //TODO
+    }
+
+    private List<Meal> getDishHistory(Dish dish){
+        Meal.withCriteria() {
+            dishes {
+                inList("id", [dish.id])
+            }
+            order ("mealDate", "desc")
+        }
     }
 }
