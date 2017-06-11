@@ -8,7 +8,7 @@
                 updateDishList(data)
             });
 
-            $('.search').keyup(function () {
+            $('#searchBar').keyup(function () {
                 var searchString = $(this).val();
                 var searchUrl = "${createLink(controller: 'dish', action: 'searchDishes')}?q=" + searchString;
                 $.get(searchUrl, function( data ) {
@@ -125,12 +125,6 @@
         </div>
     </div>
 </section>
-
-
-    <div class="row">
-        <label>Search</label>
-        <input type="search" class="form-control search" name="search" />
-    </div>
 
 </body>
 </html>
