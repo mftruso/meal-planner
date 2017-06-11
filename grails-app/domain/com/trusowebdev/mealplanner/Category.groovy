@@ -6,4 +6,8 @@ class Category {
     static constraints = {
         name nullable: false, unique: true
     }
+
+    static mapping = {
+        id generator: 'native', params: [sequence: 'seq_category']
+    }
 }

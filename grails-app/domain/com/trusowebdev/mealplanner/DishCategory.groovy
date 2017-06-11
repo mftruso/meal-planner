@@ -11,5 +11,6 @@ class DishCategory {
 
     static mapping = {
         dish sort: 'name'
+        id generator: 'native', params: [sequence: 'seq_dish_category']
     }
 }

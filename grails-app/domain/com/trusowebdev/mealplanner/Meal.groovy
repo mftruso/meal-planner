@@ -13,4 +13,8 @@ class Meal {
         mealDate nullable: false
         notes nullable: true
     }
+
+    static mapping = {
+        id generator: 'native', params: [sequence: 'seq_meal']
+    }
 }

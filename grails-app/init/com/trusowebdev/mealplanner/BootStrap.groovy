@@ -1,3 +1,5 @@
+package com.trusowebdev.mealplanner
+
 import com.trusowebdev.mealplanner.DishType
 
 class BootStrap {

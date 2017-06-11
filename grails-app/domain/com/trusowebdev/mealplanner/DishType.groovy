@@ -11,5 +11,6 @@ class DishType {
 
     static mapping = {
         sort sortOrder: "asc"
+        id generator: 'native', params: [sequence: 'seq_dish_type']
     }
 }

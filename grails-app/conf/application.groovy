@@ -5,17 +5,17 @@ import static java.sql.Connection.TRANSACTION_READ_COMMITTED
 String envShortName = Environment.envNameMappings.entrySet().find { it.value == Environment.current.name }.key
 
 dataSource {
-    dialect = 'net.kaleidos.hibernate.PostgresqlExtensionsDialect'
     driverClassName = 'org.postgresql.Driver'
     jmxExport = true
     password = ''
     pooled = true
-    postgresql.extensions.sequence_per_table = true
     url = 'jdbc:postgresql://localhost/mealplanner_' + envShortName
     username = 'mealplanner_' + envShortName
+    logSql = false
 }
 
 grails {
+    profile = web
     codegen.defaultPackage = 'com.trusowebdev.mealplanner'
     controllers {
         defaultScope = 'singleton'
@@ -46,6 +46,14 @@ grails {
     }
 
     spring.transactionManagement.proxies = false
+//  Whether to autowire entities.
+//  Disabled by default for performance reasons.
+    gorm.autowire = false
+
+//  Whether to translate GORM events into Reactor events
+//  Disabled by default for performance reasons
+    gorm.reactor.events = false
+
     urlmapping.cache.maxsize = 1000
     views.default.codec = 'html'
     views {
@@ -69,12 +77,19 @@ hibernate {
         use_query_cache = false
         region.factory_class = 'org.hibernate.cache.ehcache.EhCacheRegionFactory'
     }
+    flush.mode = 'AUTO'
 }
 
 
 spring.groovy.template.'check-template-location' = false
+spring.main.'banner-mode' = "off"
 
-endpoints.jmx.'unique-names' = true
+/**
+ * Spring Actuator Endpoints are Disabled by Default
+ */
+endpoints.enabled = false
+endpoints.jmx.enabled = true
+
 
 environments {
     development {

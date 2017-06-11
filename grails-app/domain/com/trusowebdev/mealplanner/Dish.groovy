@@ -12,6 +12,10 @@ class Dish {
         recipeLocation nullable: true
         notes nullable: true
     }
+
+    static mapping = {
+        id generator: 'native', params: [sequence: 'seq_dish']
+    }
 }
 
 
