@@ -30,14 +30,9 @@ Create the database
 psql -f sql/setup.sql
 ```
 
-Run the application with Gradle. This also calls the `clientRefresh` task to build client-side dependencies
+Run the application with Gradle. 
 ```
 ./gradlew bootRun
-```
-
-Refresh the client side dependencies after updating them in  `build.gradle`
-```
-./gradlew clientRefresh
 ```
 
 ## Contributing
