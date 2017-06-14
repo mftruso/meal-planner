@@ -50,7 +50,8 @@ class MealController {
         if(!meal.save()){
             render (status: HttpStatus.BAD_REQUEST, message: meal.errors) as JSON
         } else {
-            render (status: HttpStatus.ACCEPTED) as JSON
+            response.status = HttpStatus.ACCEPTED.value()
+            render meal as JSON
         }
     }
 
