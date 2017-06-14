@@ -9,7 +9,7 @@ This way, you can ensure each Meal this week is covered.
 - Calendar views
 
 ## Uses
-- [Grails 3.1](http://docs.grails.org/3.1.x/)
+- [Grails 3.2](http://docs.grails.org/3.2.x/)
 - [FullCalendar](https://fullcalendar.io/)
 
 
@@ -17,13 +17,18 @@ This way, you can ensure each Meal this week is covered.
 The easiest way to install most binaries on OS X is via [Homebrew](http://brew.sh/) and [SDKMAN](http://sdkman.io/).
 
  - Java 8: Download the latest [JDK 8](http://www.oracle.com/technetwork/java/javase/downloads/index.html)
- - Grails 3.1.12: `$ sdk install grails 3.1.12`
+ - Grails 3.2.10: `$ sdk install grails 3.2.10`
  - Gradle (latest): `$ sdk install gradle`
  - Groovy (latest): `$ sdk install groovy`
  - PostgreSQL: `$ brew install postgresql`
 
 
 ## Usage
+
+Create the database
+```
+psql -f sql/setup.sql
+```
 
 Run the application with Gradle. This also calls the `clientRefresh` task to build client-side dependencies
 ```
