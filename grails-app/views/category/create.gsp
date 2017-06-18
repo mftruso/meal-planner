@@ -4,7 +4,28 @@
     <meta name="layout" content="bootstrap">
 </head>
 <body>
-    <h1>${category ? "Update $category.name" : "New"} Category</h1>
+
+
+<g:if test="${flash.message}">
+    <div class="row">
+        <div class="col-xs-12">
+            <div class="card card-warning">
+                <div class="card-header">
+                    <div class="header-block">
+                        Errors:
+                    </div>
+                </div>
+                <div class="card-block">
+                    <g:eachError bean="${category}">
+                        <li><g:message error="${it}" /></li>
+                    </g:eachError>
+                </div>
+            </div>
+        </div>
+    </div>
+</g:if>
+
+<h1>${category?.name ? "Update $category.name" : "New"} Category</h1>
 
 <section class="section">
     <div class="row sameheight-container">
@@ -13,7 +34,7 @@
                 <div class="card-block">
                     <div class="title-block">
                         <h4 class="title">
-                            Categories
+                            Category
                         </h4>
                     </div>
                     <g:form action="save" id="saveCategoryForm" lpformnum="13">

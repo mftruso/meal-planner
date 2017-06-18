@@ -7,25 +7,6 @@
 </head>
 <body>
 
-<g:if test="${flash.message}">
-<div class="row">
-    <div class="col-xs-12">
-        <div class="card card-warning">
-            <div class="card-header">
-                <div class="header-block">
-                    ${flash.message}
-                </div>
-            </div>
-            <div class="card-block">
-                <g:eachError bean="${category}">
-                    <li><g:message error="${it}" /></li>
-                </g:eachError>
-            </div>
-        </div>
-    </div>
-</div>
-</g:if>
-
 <h1>Categories <a href="${createLink(action: 'create')}" class="btn btn-primary btn-small rounded"><i class="fa fa-plus"></i> New</a>
 </h1>
 
