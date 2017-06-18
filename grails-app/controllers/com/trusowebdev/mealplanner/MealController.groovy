@@ -97,9 +97,21 @@ class MealController {
             }
 
             meal.dishes = []
-            def dishes = params.dishes.split(',')
-            dishes.each {
-                meal.addToDishes(Dish.get(it))
+
+            def dishes = []
+            if(params.dishes){
+                dishes = params.dishes.split(',')
+            }
+
+            if(!dishes){
+                meal.delete()
+                flash.message = 'Meal Deleted'
+                redirect action: 'list'
+                return
+            } else {
+                dishes.each {
+                    meal.addToDishes(Dish.get(it))
+                }
             }
 
             meal.groceriesPurchased = params?.groceriesPurchased ? true : false
@@ -107,7 +119,7 @@ class MealController {
 
             if(meal.save()){
                 flash.message = 'Successfully saved meal edits!'
-                render view: 'list'
+                redirect action: 'list'
             } else {
                 render view: 'edit', model: [meal: meal]
             }
@@ -115,7 +127,6 @@ class MealController {
     }
 
     def removeDishFromMeal(){
-        println params
         Meal meal = Meal.get(params.mealId)
         Dish dish = Dish.get(params.dishId)
         meal.removeFromDishes(dish)
