@@ -15,6 +15,7 @@
                 eventRender: function(event, element) {
                     //
                 },
+                eventColor: "#d7dde4",
                 dayClick: function(date, jsEvent, view) {
                     $('.selectedDate').text(date.format());
                     $('#mealDate').val(date.format())

@@ -11,3 +11,9 @@
 .fc-event {
     border: none;
 }
+.fc-day-grid-event .fc-content {
+    white-space: normal;
+}
+.fc-event-container{
+    cursor: pointer;
+}

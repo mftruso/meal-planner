@@ -22,17 +22,14 @@ class MealController {
         def meals = Meal.list()
         meals.each { meal ->
             def dishes = meal.dishes
-            dishes.each {
-                def event = [
-                        start: meal.mealDate.format('yyyy-MM-dd'),
-                        allDay: true,
-                        title: "${it.type.name}: ${it.name}",
-                        description: it.recipeLocation,
-                        dishId: it.id,
-                        mealId: meal.id
-                ]
-                events.add(event)
-            }
+            def title = dishes.sort{ a, b -> a.type.sortOrder <=> b.type.sortOrder }.collect {"${it.type.name}: ${it.name}"}.join(', ')
+            def event = [
+                    start: meal.mealDate.format('yyyy-MM-dd'),
+                    allDay: true,
+                    title: title,
+                    mealId: meal.id
+            ]
+            events.add(event)
         }
         render events as JSON
     }
