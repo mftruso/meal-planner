@@ -1,7 +1,10 @@
 package com.trusowebdev.mealplanner
 
 import grails.converters.JSON
+import grails.gorm.transactions.ReadOnly
+import grails.gorm.transactions.Transactional
 
+@ReadOnly
 class DishController {
 
     def index() { }
@@ -75,6 +78,7 @@ class DishController {
 
     }
 
+    @Transactional
     def save() {
         Dish dish = new Dish(params)
         def categories = params.categoryIds?.tokenize(',')
@@ -91,6 +95,7 @@ class DishController {
         redirect action: 'list'
     }
 
+    @Transactional
     def update(){
         Dish dish = Dish.get(params.dishId)
         dish.properties = params

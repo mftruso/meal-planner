@@ -1,8 +1,11 @@
 package com.trusowebdev.mealplanner
 
 import grails.converters.JSON
+import grails.gorm.transactions.ReadOnly
+import grails.gorm.transactions.Transactional
 import org.springframework.http.HttpStatus
 
+@ReadOnly
 class MealController {
 
     def index() {
@@ -34,6 +37,7 @@ class MealController {
         render events as JSON
     }
 
+    @Transactional
     def create(){
         def json = request.JSON
         Meal meal = new Meal()
@@ -62,6 +66,7 @@ class MealController {
         render response as JSON
     }
 
+    @Transactional
     def update(){
         def json = request.JSON
         Meal meal = Meal.get(params.id)
@@ -123,6 +128,7 @@ class MealController {
         }
     }
 
+    @Transactional
     def removeDishFromMeal(){
         Meal meal = Meal.get(params.mealId)
         Dish dish = Dish.get(params.dishId)

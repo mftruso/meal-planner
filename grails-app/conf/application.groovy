@@ -46,9 +46,6 @@ grails {
     }
 
     spring.transactionManagement.proxies = false
-//  Whether to autowire entities.
-//  Disabled by default for performance reasons.
-    gorm.autowire = false
 
 //  Whether to translate GORM events into Reactor events
 //  Disabled by default for performance reasons
@@ -73,9 +70,8 @@ grails {
 hibernate {
     cache {
         queries = false
-        use_second_level_cache = true
+        use_second_level_cache = false
         use_query_cache = false
-        region.factory_class = 'org.hibernate.cache.ehcache.EhCacheRegionFactory'
     }
     flush.mode = 'AUTO'
 }
