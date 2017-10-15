@@ -1,9 +1,16 @@
 package com.trusowebdev.mealplanner
 
 import grails.converters.JSON
+import grails.plugin.springsecurity.annotation.Secured
 import org.springframework.http.HttpStatus
+import org.springframework.security.core.context.SecurityContextHolder
 
+@Secured('ROLE_ADMIN')
 class MealController {
+
+    def googleCalendarService
+    def googleOAuth2Service
+    def springSecurityService
 
     def index() {
 
@@ -18,6 +25,8 @@ class MealController {
     }
 
     def listJSON(){
+//        googleCalendarService.queryForEvents()
+        println SecurityContextHolder.context.authentication
         def events = []
         def meals = Meal.list()
         meals.each { meal ->

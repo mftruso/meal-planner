@@ -9,6 +9,9 @@
 </head>
 <body>
 
+Login: <oauth2:connect provider="google">google</oauth2:connect>
+
+
 <h1>My Meal Planner</h1>
 
 <h2>What's for dinner this week?</h2>

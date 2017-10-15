@@ -48,7 +48,7 @@ grails {
     spring.transactionManagement.proxies = false
 //  Whether to autowire entities.
 //  Disabled by default for performance reasons.
-    gorm.autowire = false
+    gorm.autowire = true
 
 //  Whether to translate GORM events into Reactor events
 //  Disabled by default for performance reasons
@@ -138,5 +138,59 @@ environments {
 grails.plugin.databasemigration.updateOnStart = true
 grails.plugin.databasemigration.updateOnStartFileNames = ['changelog.groovy']
 
-gcal.clientId = ${MP_GCAL_CLIENT}
-gcal.clientSecret = ${MP_GCAL_CLIENT_SECRET}
+grails {
+    plugin {
+        springsecurity {
+            oauth2 {
+                active =  true
+                registration {
+                    askToLinkOrCreateAccountUri = '/oauth2/ask'
+                    roleNames = ['ROLE_USER']
+                }
+                providers {
+                    google {
+                        api_key = System.getenv('MP_GCAL_CLIENT_ID')              //needed
+                        api_secret =  System.getenv('MP_GCAL_CLIENT_SECRET')    //needed
+                        successUri = "/oauth2/google/success"    //optional
+                        failureUri = "/oauth2/google/failure"    //optional
+                        callback = "/oauth2/google/callback"     //optional
+                        scopes = "https://www.googleapis.com/auth/calendar.readonly" //optional
+                    }
+                }
+            }
+        }
+    }
+}
+
+gcal.clientId = System.getenv('MP_GCAL_CLIENT_ID')
+gcal.clientSecret = System.getenv('MP_GCAL_CLIENT_SECRET')
+
+// Added by the Spring Security OAuth2 Google Plugin:
+grails.plugin.springsecurity.oauth2.domainClass = 'com.trusowebdev.mealplanner.OAuthID'
+
+
+// Added by the Spring Security Core plugin:
+grails.plugin.springsecurity.userLookup.userDomainClassName = 'com.trusowebdev.mealplanner.User'
+grails.plugin.springsecurity.userLookup.authorityJoinClassName = 'com.trusowebdev.mealplanner.UserRole'
+grails.plugin.springsecurity.authority.className = 'com.trusowebdev.mealplanner.Role'
+grails.plugin.springsecurity.controllerAnnotations.staticRules = [
+	[pattern: '/',               access: ['permitAll']],
+	[pattern: '/error',          access: ['permitAll']],
+	[pattern: '/index',          access: ['permitAll']],
+	[pattern: '/index.gsp',      access: ['permitAll']],
+	[pattern: '/shutdown',       access: ['permitAll']],
+	[pattern: '/assets/**',      access: ['permitAll']],
+	[pattern: '/**/js/**',       access: ['permitAll']],
+	[pattern: '/**/css/**',      access: ['permitAll']],
+	[pattern: '/**/images/**',   access: ['permitAll']],
+	[pattern: '/**/favicon.ico', access: ['permitAll']]
+]
+
+grails.plugin.springsecurity.filterChain.chainMap = [
+	[pattern: '/assets/**',      filters: 'none'],
+	[pattern: '/**/js/**',       filters: 'none'],
+	[pattern: '/**/css/**',      filters: 'none'],
+	[pattern: '/**/images/**',   filters: 'none'],
+	[pattern: '/**/favicon.ico', filters: 'none'],
+	[pattern: '/**',             filters: 'JOINED_FILTERS']
+]
