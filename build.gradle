@@ -15,24 +15,20 @@ buildscript {
 }
 
 version file('version.txt').text.trim()
-group "com.trusowebdev"
+group "com.trusowebdev.mealplanner"
 
-apply plugin:"eclipse"
 apply plugin:"idea"
 apply plugin:"war"
 apply plugin:"org.grails.grails-web"
 apply plugin:"asset-pipeline"
 apply plugin:"org.grails.grails-gsp"
 
-ext {
-    grailsVersion = project.grailsVersion
-    gradleWrapperVersion = project.gradleWrapperVersion
-}
-
 repositories {
     mavenLocal()
     maven { url "https://repo.grails.org/grails/core" }
 }
+
+ext['tomcat.version'] = '8.5.23'
 
 sourceSets {
     main {

@@ -73,7 +73,6 @@ hibernate {
         use_second_level_cache = false
         use_query_cache = false
     }
-    flush.mode = 'AUTO'
 }
 
 
