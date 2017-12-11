@@ -60,6 +60,11 @@ class DishController {
                         name:it.name
                 ]
             }
+        } else if(params.category) {
+            Category category = Category.get(params.category)
+            DishCategory.findAllByDishAndCategory(dish, category).collect {
+
+            }
         } else if(params.q){
             responseData = Dish.findAllByNameIlike("%${params.q}%").collect {
                 [
