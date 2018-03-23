@@ -28,7 +28,7 @@
 
         <div>
             <label for="addDish">Add Another Dish</label>
-            <g:select name="addDish" from="${DishType.list()}" optionValue="name" optionKey="name" noSelection="['':'Select a Type']" />
+            <g:select name="addDish" from="${dishTypes}" optionValue="name" optionKey="id" noSelection="['':'Select a Type']" />
         </div>
 
         <div class="checkbox">

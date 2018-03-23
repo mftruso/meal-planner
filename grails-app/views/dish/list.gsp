@@ -2,7 +2,7 @@
 <head>
     <title>Dish List</title>
     <meta name="layout" content="bootstrap">
-    <asset:script>
+    <asset:script type="application/javascript">
         $(document).ready(function(){
             $.get( "${createLink(controller: 'dish', action: 'searchDishes')}", function( data ) {
                 updateDishList(data)
@@ -33,7 +33,7 @@
         }
 
         function loadDishDetails(id){
-            var dishDetailUrl = "${createLink(controller: 'dish', action: 'searchDishes')}?id=" + id;
+            var dishDetailUrl = "${createLink(controller: 'dish', action: 'lookup')}?id=" + id;
             var dishEditUrl = "${createLink(controller: 'dish', action: 'edit')}/" + id;
             $('.historyList').html('');
             $('.categoryList').html('');

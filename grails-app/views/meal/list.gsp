@@ -1,4 +1,3 @@
-<%@ page import="com.trusowebdev.mealplanner.Dish; com.trusowebdev.mealplanner.DishType" %>
 <html>
 <head>
     <title>Meal List</title>
@@ -6,7 +5,7 @@
 
     <asset:stylesheet src="app/meal/list.css" />
 
-    <asset:script>
+    <asset:script type="application/javascript">
         var selectedDate;
         $(document).ready(function() {
 
@@ -18,19 +17,19 @@
                 eventColor: "#d7dde4",
                 dayClick: function(date, jsEvent, view) {
                     $('.selectedDate').text(date.format());
-                    $('#mealDate').val(date.format())
+                    $('#mealDate').val(date.format());
                     $('#addMealModal').modal('show');
                 },
                 eventClick: function(calEvent, jsEvent, view) {
                     $.get('${createLink(controller: 'meal', action: 'search')}?mealId='+calEvent.mealId)
                             .done(function(data){
-                                $('.selectedDate').text(calEvent.start.format())
-                                $('.dish-list').empty()
+                                $('.selectedDate').text(calEvent.start.format());
+                                $('.dish-list').empty();
                                 data.dishes.forEach(lookupDish);
-                                $('#groceryList').prop("checked", data.groceryList)
-                                $('#groceriesPurchased').prop("checked", data.groceriesPurchased)
-                                $('.editButton').prop('href', '${createLink(controller: 'meal', action: 'edit')}?id='+calEvent.mealId)
-                                $('#groceries').attr('data-mealid', calEvent.mealId)
+                                $('#groceryList').prop("checked", data.groceryList);
+                                $('#groceriesPurchased').prop("checked", data.groceriesPurchased);
+                                $('.editButton').prop('href', '${createLink(controller: 'meal', action: 'edit')}?id='+calEvent.mealId);
+                                $('#groceries').attr('data-mealid', calEvent.mealId);
                                 $('#viewMealModal').modal('show');
                             })
                             .fail(function(data){
@@ -78,11 +77,11 @@
 
 
             $('.groceryBox').click(function(){
-                var data = {}
-                data.checked = this.checked
-                data.box = this.id
+                var data = {};
+                data.checked = this.checked;
+                data.box = this.id;
 
-                var mealId = $('#groceries').attr('data-mealid')
+                var mealId = $('#groceries').attr('data-mealid');
 
                 $.ajax({
                     type: "POST",
@@ -104,7 +103,7 @@
         });
 
         function lookupDish(dish, index){
-            $.get('${createLink(controller: 'dish', action: 'searchDishes')}?id='+dish.id)
+            $.get('${createLink(controller: 'dish', action: 'lookup')}?id='+dish.id)
                     .done(function (data) {
                         $('.dish-list').append("<li>" + data.name + "</li>");
                     })
@@ -113,7 +112,7 @@
                     })
         }
 
-        <g:each in="${DishType.listOrderBySortOrder()}" var="dishType" >
+        <g:each in="${dishTypes}" var="dishType" >
             intializeTypeahead("${dishType.name}","${dishType.name}");
         </g:each>
     </asset:script>
@@ -155,7 +154,9 @@
                 <form id="addMealForm">
                     <g:hiddenField type="hidden" name="mealDate" />
 
-                    <g:each in="${DishType.listOrderBySortOrder()}" var="dishType" >
+                    <g:select name="category" from="${categories}" optionKey="id" optionValue="name" noSelection="${['null':'Filter Meal searches by category...']}" />
+
+                    <g:each in="${dishTypes}" var="dishType" >
                         <div>
                             <label>${dishType.name}</label>
                             <br/>
@@ -167,9 +168,9 @@
 
                     <div class="form-group extraDish" style="display:none">
                         <label>Type</label>
-                        <g:select name="dishType" class="form-control dishType" from="${DishType.listOrderBySortOrder()}" optionValue="name" optionKey="id" />
+                        <g:select name="dishType" class="form-control dishType" from="${dishTypes}" optionValue="name" optionKey="id" />
                         <label>Dish Name</label>
-                        <g:select name="dishName" class="form-control" from="${Dish.listOrderByName()}" optionValue="name" optionKey="id" />
+                        <g:select name="dishName" class="form-control" from="${dishes}" optionValue="name" optionKey="id" />
                         <hr />
                     </div>
                 </form>

@@ -7,18 +7,21 @@ import grails.gorm.transactions.Transactional
 @ReadOnly
 class DishController {
 
-    def index() { }
+    def dishService
 
-    def list(){
+    def index() {
 
     }
 
-    def show(){
-        Dish dish = Dish.get(params.id)
+    def list() {
+
+    }
+
+    def show(Dish dish){
         [
                 dish: dish,
                 categories: DishCategory.findAllByDish(dish).collect {it.category},
-                history: getDishHistory(dish)
+                history: dishService.getDishHistory(dish)
         ]
     }
 
@@ -26,57 +29,40 @@ class DishController {
         Dish dish = Dish.get(params.id)
         [
                 dish: dish,
-                categories: DishCategory.findAllByDish(dish).collect {it.category}
+                categories: DishCategory.findAllByDish(dish).collect {it.category},
         ]
     }
 
-    def searchDishes(){
-        def responseData
-        if(params.id){
-            Dish dish =  Dish.get(params.id)
-            def history = getDishHistory(dish).collect {
-                it.mealDate.format('MM/dd/yyyy')
-            }
-            def dishDetails = [
-                    name: dish.name,
-                    type: dish.type.name,
-                    recipeLocation: dish.recipeLocation,
-                    notes: dish.notes,
-                    history: history,
-                    categories: DishCategory.findAllByDish(dish).collect { it.category.name }
-            ]
-            responseData = dishDetails
-        } else if(params.q && params.type) {
-            responseData = Dish.findAllByTypeAndNameIlike(DishType.findAllByNameIlike("%${params.type}%"),"%${params.q}%").collect {
-                [
-                        id:it.id,
-                        name:it.name
-                ]
-            }
-        } else if(params.type){
-            responseData = Dish.findAllByType(DishType.findAllByNameIlike("%${params.type}%")).collect {
-                [
-                        id:it.id,
-                        name:it.name
-                ]
-            }
-        } else if(params.category) {
-            Category category = Category.get(params.category)
-            DishCategory.findAllByDishAndCategory(dish, category).collect {
-
-            }
-        } else if(params.q){
-            responseData = Dish.findAllByNameIlike("%${params.q}%").collect {
-                [
-                        id: it.id,
-                        name: it.name
-                ]
-            }
-        } else {
-            responseData = Dish.listOrderByName()
+    def lookup(Dish dish) {
+        def history = dishService.getDishHistory(dish).collect {
+            it.mealDate.format('MM/dd/yyyy')
         }
+        def dishDetails = [
+                name          : dish.name,
+                type          : dish.type.name,
+                recipeLocation: dish.recipeLocation,
+                notes         : dish.notes,
+                history       : history,
+                categories    : DishCategory.findAllByDish(dish).collect { it.category.name }
+        ]
+        render dishDetails as JSON
+    }
 
+    def searchDishes(DishSearchCommand cmd){
+        def responseData
+        List<Dish> dishes = dishService.search(cmd)
+        responseData = dishes.collect {
+            [
+                    id: it.id,
+                    name: it.name
+            ]
+        }
         render responseData as JSON
+    }
+
+    def listByCategory(Category category) {
+        List dishes = DishCategory.findAllByCategory(category).collect { it.dish }.unique()
+        render dishes as JSON
     }
 
     def create() {
@@ -134,12 +120,4 @@ class DishController {
         //TODO
     }
 
-    private List<Meal> getDishHistory(Dish dish){
-        Meal.withCriteria() {
-            dishes {
-                inList("id", [dish.id])
-            }
-            order ("mealDate", "desc")
-        }
-    }
 }

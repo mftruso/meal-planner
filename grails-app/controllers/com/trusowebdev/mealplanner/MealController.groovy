@@ -13,11 +13,18 @@ class MealController {
     }
 
     def list() {
-
+        [
+                dishTypes: DishType.listOrderBySortOrder(),
+                categories: Category.listOrderByName(),
+                dishes: Dish.listOrderByName()
+        ]
     }
 
-    def edit() {
-        [meal: Meal.get(params.id)]
+    def edit(Meal meal) {
+        [
+                meal: meal,
+                dishTypes: DishType.list()
+        ]
     }
 
     def listJSON(){
