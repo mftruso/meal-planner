@@ -74,7 +74,8 @@ dependencies {
     runtime "org.apache.tomcat:tomcat-jdbc"
 
     testCompile "org.grails:grails-gorm-testing-support"
-    testCompile "org.grails.plugins:geb"
+    testCompile "org.grails.plugins:geb:1.1.2"
+    testRuntime "org.seleniumhq.selenium:selenium-chrome-driver:2.47.1"
     testRuntime "org.seleniumhq.selenium:selenium-htmlunit-driver:2.47.1"
     testRuntime "net.sourceforge.htmlunit:htmlunit:2.18"
 
@@ -93,4 +94,6 @@ assets {
 bootRun {
     jvmArgs('-Dspring.output.ansi.enabled=always')
     addResources = true
+    String springProfilesActive = 'spring.profiles.active'
+    systemProperty springProfilesActive, System.getProperty(springProfilesActive)
 }

@@ -45,8 +45,6 @@ grails {
         ]
     }
 
-    spring.transactionManagement.proxies = false
-
 //  Whether to translate GORM events into Reactor events
 //  Disabled by default for performance reasons
     gorm.reactor.events = false
